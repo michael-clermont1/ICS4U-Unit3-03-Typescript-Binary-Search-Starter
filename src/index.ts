@@ -9,35 +9,33 @@
 
 import promptSync from 'prompt-sync'
 
-    function binarySearch(userArray: number[],
+function binarySearch(userArray: number[],
     userNumber: number,
     lowIndex: number, highIndex: number): number {
-          if (highIndex > lowIndex) {
-            const mid = (lowIndex + highIndex) / 2
-            if (userNumber === userArray[mid]) {
-                return mid
-            } else if (userNumber > userArray[mid]) {
-                return binarySearch(userArray, userNumber, mid + 1, highIndex)
-            } else {
-                return binarySearch(userArray, userNumber, lowIndex, mid - 1)
-            }
-        }
-      return -1
-    }
+  const mid = (lowIndex + highIndex) / 2
+  if (userNumber === userArray[mid]) {
+      return mid
+  } else if (userNumber > userArray[mid]) {
+    return binarySearch(userArray, userNumber, mid + 1, highIndex)
+  } else {
+    return binarySearch(userArray, userNumber, lowIndex, mid - 1)
+  }
+}
 
     function main() {
         console.log("Binary Search Program.")
         try {
             let randomNumberArray: number[] = new Array(250)
             for (let counter = 0; counter < randomNumberArray.length; counter++) {
-                let min = 0
-                let max = 999
-                min = Math.ceil(min)
-                max = Math.floor(max)
-                randomNumberArray[counter] = Math.floor(Math.random() * (max - min) + min)
+                let randomNum: number
+                do {
+                    randomNum = Math.floor(Math.random() * 999)
+                } while (randomNumberArray.includes(randomNum)) {
+                    randomNumberArray[counter] = randomNum
+                }
             }
             let numberArray: number[] = randomNumberArray
-            numberArray.sort()
+            numberArray.sort(function(a,b){return a - b})
 
             console.log('\nSorted list of numbers:\n')
             console.log(numberArray)
